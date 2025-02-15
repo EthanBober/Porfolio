@@ -1,6 +1,6 @@
 // Skills data
 const analysisSkills = [
-    'Thermal Mechanical Analysis',
+    'Thermal-Mechanical Analysis',
     'Impulse Excitation Testing',
     'Tensile & Hardness Testing',
     'Surface Characterization',
@@ -12,15 +12,15 @@ const synthesisSkills = [
     'Hydrogel Fabrication',
     'Composite Processing',
     'Material Optimization',
-    'Process Scale-up'
+    'Organic Synthesis'
 ];
 
 const computationalSkills = [
-    'MATLAB & Python',
-    'LAMMPS Simulation',
-    'ANSYS Suite',
-    'CAD/CAM Tools',
-    'Data Analysis'
+    'MATLAB',
+    'LAMMPS',
+    'ANSYS Granta/Fluent',
+    'Python',
+    'C++'
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
