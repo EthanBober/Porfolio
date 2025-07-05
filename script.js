@@ -1,12 +1,13 @@
 const card = document.getElementById('card');
 const cardInner = document.getElementById('card-inner');
-let flipped = false;
+let flipCount = 0;
 let rotationX = 0;
 let rotationY = 0;
 
+cardInner.style.transition = 'transform 0.7s cubic-bezier(0.23, 1, 0.32, 1)';
+
 function applyTransform() {
-  const flip = flipped ? 180 : 0;
-  const totalY = rotationY + flip;
+  const totalY = rotationY + flipCount * 180;
   cardInner.style.transform = `rotateX(${rotationX}deg) rotateY(${totalY}deg)`;
 }
 
@@ -16,9 +17,49 @@ document.addEventListener('mousemove', (e) => {
   applyTransform();
 });
 
+// Create and style the flip counter element
+const flipCounter = document.createElement('div');
+flipCounter.style.position = 'fixed';
+flipCounter.style.bottom = '10px';
+flipCounter.style.right = '16px';
+flipCounter.style.background = 'none';
+flipCounter.style.color = '#000';
+flipCounter.style.padding = '0';
+flipCounter.style.borderRadius = '0';
+flipCounter.style.fontFamily = 'Times New Roman, serif';
+flipCounter.style.fontSize = '1rem';
+flipCounter.style.zIndex = '1000';
+flipCounter.style.pointerEvents = 'none';
+flipCounter.textContent = `Flips: ${flipCount}`;
+document.body.appendChild(flipCounter);
+
+function updateFlipCounter() {
+  flipCounter.textContent = `Flips: ${flipCount}`;
+}
+
+// Load flip count and flip side from localStorage if available
+const savedFlipCount = localStorage.getItem('flipCount');
+if (savedFlipCount !== null) {
+  flipCount = parseInt(savedFlipCount, 10) || 0;
+}
+let isBack = false;
+const savedIsBack = localStorage.getItem('isBack');
+if (savedIsBack !== null) {
+  isBack = savedIsBack === 'true';
+}
+// Set flipCount parity to match isBack (even = front, odd = back)
+if (isBack && flipCount % 2 === 0) flipCount++;
+if (!isBack && flipCount % 2 === 1) flipCount--;
+flipCounter.textContent = `Flips: ${flipCount}`;
+applyTransform();
+
 card.addEventListener('click', () => {
-  flipped = !flipped;
+  flipCount++;
+  isBack = !isBack;
+  localStorage.setItem('flipCount', flipCount);
+  localStorage.setItem('isBack', isBack);
   applyTransform();
+  updateFlipCounter();
 });
 
 const cardFace = document.querySelector('.card-face.card-front');
