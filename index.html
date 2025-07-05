@@ -1,76 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ethan Bober</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-    <link rel="manifest" href="/favicon/site.webmanifest" />
-    <link rel="stylesheet" href="newstyles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethan Bober</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
 </head>
 <body>
-    <div class="scroll-container">
-        <section id="hero" class="fullscreen-section active">
-            <div class="hero-content">
-                <img src="headshot.jpeg" alt="Ethan Bober Headshot" class="headshot">
-                <h1>Ethan Bober</h1>
-                <h2>Materials Engineering Student</h2>
-                <p>University of Pennsylvania '27</p>
-                <div class="contact-links">
-                    <a href="mailto:ebober@seas.upenn.edu"><i class="fa-solid fa-envelope"></i></a>
-                    <a href="https://www.linkedin.com/in/ethanbober/"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="https://github.com/EthanBober"><i class="fa-brands fa-github"></i></a>
-                </div>
+  <div class="scene">
+    <div class="card" id="card">
+      <div class="card-inner" id="card-inner">
+        <div class="card-face card-front">
+          <div class="card-content">
+            <div class="top-left">
+              <div>954 982 1449</div>
+              <div><a href="mailto:ebober@seas.upenn.edu">ebober@seas.upenn.edu</a></div>
             </div>
-            <div class="scroll-indicator">
-                <span>Scroll Down</span>
-                <div class="arrow"></div>
+            <div class="top-right">
+              <div class="company-name">UNIVERSITY OF PENNSYLVANIA</div>
+              <div class="tagline">PENN ENGINEERING</div>
             </div>
-        </section>
-
-        <section id="research" class="fullscreen-section">
-            <h2>Research Highlights</h2>
-            <div class="research-grid">
-                <div class="research-item">
-                    <h3>Hydrogel Dessicant Development</h3>
-                    <p>Fabricating hygroscopic hydrogel composites and desiccant wheel, achieving significant performance improvements over industry standards.</p>
-                </div>
-                <div class="research-item">
-                    <h3>Photocatalyst Research for Clean Energy</h3>
-                    <p>Conducting research in photocatalytic hydrogen evolution, developing novel materials for clean energy production with increased efficiency rates.</p>
-                </div>
-                <div class="research-item">
-                    <h3>Room Temperture Ionic Liquid Research</h3>
-                    <p>Conducting molecular dynamics simulations to predict and optimize ionic liquid properties for next-generation energy storage applications.</p>
-                </div>
+            <div class="center">
+              <div><span class="last-name">Ethan BOBER</span></div>
+              <div class="title">Materials Engineering Student</div>
             </div>
-        </section>
-
-        <section id="skills" class="fullscreen-section">
-            <h2>Technical Skills</h2>
-            <div class="skills-container">
-                <div class="skill-category">
-                    <h3>Material Analysis</h3>
-                    <ul id="analysis-skills"></ul>
-                </div>
-                <div class="skill-category">
-                    <h3>Synthesis & Processing</h3>
-                    <ul id="synthesis-skills"></ul>
-                </div>
-                <div class="skill-category">
-                    <h3>Computational Tools</h3>
-                    <ul id="computational-skills"></ul>
-                </div>
-            </div>
-        </section>
+            <div class="bottom">Philadelphia, PA | <a href="https://www.linkedin.com/in/ethanbober/">LinkedIn</a> | <a href="https://github.com/EthanBober">GitHub</a></div>
+          </div>
+        </div>
+        <div class="card-face card-back">
+          <div class="back-content">
+            <p>Materials engineering student with expertise in materials informatics, nanofabrication, and advanced characterization.</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <script src="https://kit.fontawesome.com/2c4022972e.js" crossorigin="anonymous"></script>
-    <script src="script.js"></script>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>

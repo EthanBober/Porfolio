@@ -1,113 +1,71 @@
-// Skills data
-const analysisSkills = [
-    'Thermal-Mechanical Analysis',
-    'Impulse Excitation Testing',
-    'Tensile & Hardness Testing',
-    'Surface Characterization',
-    'Spectroscopic Methods'
-];
+const card = document.getElementById('card');
+const cardInner = document.getElementById('card-inner');
+let flipped = false;
+let rotationX = 0;
+let rotationY = 0;
 
-const synthesisSkills = [
-    'Polymer Synthesis',
-    'Hydrogel Fabrication',
-    'Composite Processing',
-    'Material Optimization',
-    'Organic Synthesis'
-];
+function applyTransform() {
+  const flip = flipped ? 180 : 0;
+  const totalY = rotationY + flip;
+  cardInner.style.transform = `rotateX(${rotationX}deg) rotateY(${totalY}deg)`;
+}
 
-const computationalSkills = [
-    'MATLAB',
-    'LAMMPS',
-    'ANSYS Granta/Fluent',
-    'Python',
-    'C++'
-];
+document.addEventListener('mousemove', (e) => {
+  rotationY = (e.clientX / window.innerWidth - 0.5) * 10;
+  rotationX = -(e.clientY / window.innerHeight - 0.5) * 10;
+  applyTransform();
+});
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Add small delay for smoother loading
-    setTimeout(() => {
-        // Add loaded class to enable fade-in
-        const scrollContainer = document.querySelector('.scroll-container');
-        scrollContainer.classList.add('loaded');
-        
-        // Populate skills lists
-        const populateSkills = (skills, elementId) => {
-            const list = document.getElementById(elementId);
-            const fragment = document.createDocumentFragment();
-            
-            skills.forEach(skill => {
-                const li = document.createElement('li');
-                li.textContent = skill;
-                fragment.appendChild(li);
-            });
-            
-            list.appendChild(fragment);
-        };
+card.addEventListener('click', () => {
+  flipped = !flipped;
+  applyTransform();
+});
 
-        populateSkills(analysisSkills, 'analysis-skills');
-        populateSkills(synthesisSkills, 'synthesis-skills');
-        populateSkills(computationalSkills, 'computational-skills');
+const cardFace = document.querySelector('.card-face.card-front');
+const glistenCanvas = document.createElement('canvas');
+glistenCanvas.width = card.offsetWidth;
+glistenCanvas.height = card.offsetHeight;
+glistenCanvas.style.position = 'absolute';
+glistenCanvas.style.top = '0';
+glistenCanvas.style.left = '0';
+glistenCanvas.style.width = '100%';
+glistenCanvas.style.height = '100%';
+glistenCanvas.style.pointerEvents = 'none';
+glistenCanvas.style.zIndex = '2';
+cardFace.appendChild(glistenCanvas);
 
-        // Make sure hero section is active on initial load (only hero has fade-in)
-        document.getElementById('hero').classList.add('active');
+function drawGlistenEdge(x, y) {
+  const ctx = glistenCanvas.getContext('2d');
+  ctx.clearRect(0, 0, glistenCanvas.width, glistenCanvas.height);
+  const cx = glistenCanvas.width / 2;
+  const cy = glistenCanvas.height / 2;
+  const dx = x - cx;
+  const dy = y - cy;
+  const angle = Math.atan2(dy, dx);
+  const edgeWidth = 18; 
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.rotate(angle);
+  const grad = ctx.createLinearGradient(-glistenCanvas.width/2, 0, glistenCanvas.width/2, 0);
+  grad.addColorStop(0, 'rgba(255,255,255,0.0)');
+  grad.addColorStop(0.48, 'rgba(255,255,255,0.0)');
+  grad.addColorStop(0.5, 'rgba(255,255,255,0.18)');
+  grad.addColorStop(0.52, 'rgba(255,255,255,0.0)');
+  grad.addColorStop(1, 'rgba(255,255,255,0.0)');
+  ctx.globalCompositeOperation = 'lighter';
+  ctx.fillStyle = grad;
+  ctx.fillRect(-glistenCanvas.width/2, -glistenCanvas.height/2, glistenCanvas.width, edgeWidth);
+  ctx.restore();
+  ctx.globalCompositeOperation = 'source-over';
+}
 
-        // Hide scroll indicator initially
-        const scrollIndicator = document.querySelector('.scroll-indicator');
-        
-        // Set initial styles for smooth appearance
-        scrollIndicator.style.opacity = '0';
-        scrollIndicator.style.transform = 'translateY(20px)';
-        scrollIndicator.style.transition = 'opacity 1.2s ease-out, transform 1.2s ease-out';
-        
-        // Show scroll indicator after 3.5 seconds with smooth animation
-        setTimeout(() => {
-            scrollIndicator.style.opacity = '1';
-            scrollIndicator.style.transform = 'translateY(0)';
-        }, 3500);
-
-        // Research item animations on hover
-        const items = document.querySelectorAll('.research-item, .skill-category');
-        items.forEach((item, index) => {
-            // Small staggered animation for items, but no opacity/transform
-            item.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s forwards`;
-        });
-
-        // Smooth scroll for the scroll indicator
-        document.querySelector('.scroll-indicator').addEventListener('click', () => {
-            const researchSection = document.getElementById('research');
-            scrollContainer.scrollTo({
-                top: researchSection.offsetTop,
-                behavior: 'smooth'
-            });
-        });
-        
-        // Improve snapping during scroll
-        scrollContainer.addEventListener('scroll', () => {
-            clearTimeout(scrollContainer.scrollEndTimer);
-            scrollContainer.scrollEndTimer = setTimeout(() => {
-                const scrollPosition = scrollContainer.scrollTop;
-                
-                // Find the nearest section
-                let closestSection = null;
-                let closestDistance = Infinity;
-                
-                const sections = document.querySelectorAll('.fullscreen-section');
-                sections.forEach(section => {
-                    const distance = Math.abs(section.offsetTop - scrollPosition);
-                    if (distance < closestDistance) {
-                        closestDistance = distance;
-                        closestSection = section;
-                    }
-                });
-                
-                // Scroll to the nearest section
-                if (closestSection && Math.abs(closestSection.offsetTop - scrollPosition) > 50) {
-                    scrollContainer.scrollTo({
-                        top: closestSection.offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            }, 100); // Small delay to wait for scrolling to finish
-        });
-    }, 200); // 200ms delay for smoother loading
+card.addEventListener('mousemove', (e) => {
+  const rect = card.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  drawGlistenEdge(x, y);
+});
+card.addEventListener('mouseleave', () => {
+  const ctx = glistenCanvas.getContext('2d');
+  ctx.clearRect(0, 0, glistenCanvas.width, glistenCanvas.height);
 });
