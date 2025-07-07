@@ -44,7 +44,12 @@ body {
     0px 3px 6px #bdbbb3;
 }
 
-a:hover, a:visited, a:link, a:active
+.card-face.golden-effect {
+  box-shadow: 0 0 32px 8px #ffd700, 0 20px 40px rgba(0,0,0,0.13);
+  border: 1px solid #000;
+}
+
+  a:visited, a:link, a:active
 {
     text-decoration: none;
     color: inherit;
@@ -170,3 +175,4 @@ a:hover, a:visited, a:link, a:active
     1.5px 1.5px 0 #e6e4de,
     0px 3px 6px #bdbbb3;
 }
+

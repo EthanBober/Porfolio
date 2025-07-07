@@ -33,8 +33,36 @@ flipCounter.style.pointerEvents = 'none';
 flipCounter.textContent = `Flips: ${flipCount}`;
 document.body.appendChild(flipCounter);
 
+const cardBackFace = document.querySelector('.card-face.card-back');
+const cardFrontFace = document.querySelector('.card-face.card-front');
+
+function updateCardFaceGoldenEffect() {
+  if (flipCount > 100) {
+    cardBackFace.classList.add('golden-effect');
+    cardFrontFace.classList.add('golden-effect');
+  } else {
+    cardBackFace.classList.remove('golden-effect');
+    cardFrontFace.classList.remove('golden-effect');
+  }
+}
+
+function updateBottomCardFaceStyle() {
+  if (flipCount > 100) {
+    cardBackFace.classList.add('card-face-bottom-active');
+  } else {
+    cardBackFace.classList.remove('card-face-bottom-active');
+  }
+  updateCardFaceGoldenEffect();
+}
+
 function updateFlipCounter() {
   flipCounter.textContent = `Flips: ${flipCount}`;
+  updateBottomCardFaceStyle();
+  if (flipCount > 100) {
+    card.classList.add('golden');
+  } else {
+    card.classList.remove('golden');
+  }
 }
 
 // Load flip count and flip side from localStorage if available
@@ -52,6 +80,7 @@ if (isBack && flipCount % 2 === 0) flipCount++;
 if (!isBack && flipCount % 2 === 1) flipCount--;
 flipCounter.textContent = `Flips: ${flipCount}`;
 applyTransform();
+updateBottomCardFaceStyle();
 
 card.addEventListener('click', () => {
   flipCount++;
