@@ -51,8 +51,21 @@ body {
 
   a:visited, a:link, a:active
 {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;;
+  color: #000;
+}
+
+/* Only scale links, not the card, on hover/active */
+a, #paul-allen-message a {
+  transition: transform 0.18s cubic-bezier(0.4, 2, 0.6, 1);
+  display: inline-block;
+}
+a:hover, #paul-allen-message a:hover {
+  transform: scale(1.04);
+  z-index: 1001;
+}
+a:active, #paul-allen-message a:active {
+  transform: scale(1.09);
 }
 
 .card-back {
@@ -176,3 +189,13 @@ body {
     0px 3px 6px #bdbbb3;
 }
 
+.pa-bottom-left {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  color: grey;
+  font-size: 1rem;
+  z-index: 1000;
+  font-family: 'Times New Roman', serif;
+  opacity: 0.85;
+}

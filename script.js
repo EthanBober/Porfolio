@@ -4,6 +4,12 @@ let flipCount = 0;
 let rotationX = 0;
 let rotationY = 0;
 
+const paMsg = document.getElementById('paul-allen-message');
+paMsg.style.display = 'none';
+
+
+
+
 cardInner.style.transition = 'transform 0.7s cubic-bezier(0.23, 1, 0.32, 1)';
 
 function applyTransform() {
@@ -37,7 +43,7 @@ const cardBackFace = document.querySelector('.card-face.card-back');
 const cardFrontFace = document.querySelector('.card-face.card-front');
 
 function updateCardFaceGoldenEffect() {
-  if (flipCount > 100) {
+  if (flipCount >= 100) {
     cardBackFace.classList.add('golden-effect');
     cardFrontFace.classList.add('golden-effect');
   } else {
@@ -62,6 +68,13 @@ function updateFlipCounter() {
     card.classList.add('golden');
   } else {
     card.classList.remove('golden');
+  }
+  // Show Paul Allen message if flipCount >= 100 or if previously shown
+  if (flipCount >= 100 || localStorage.getItem('paulAllenShown') === 'true') {
+    paMsg.style.display = 'block';
+    localStorage.setItem('paulAllenShown', 'true');
+  } else {
+    paMsg.style.display = 'none';
   }
 }
 
@@ -89,6 +102,7 @@ card.addEventListener('click', () => {
   localStorage.setItem('isBack', isBack);
   applyTransform();
   updateFlipCounter();
+  // If 100 flips reached, persist Paul Allen message
 });
 
 const cardFace = document.querySelector('.card-face.card-front');
@@ -139,3 +153,9 @@ card.addEventListener('mouseleave', () => {
   const ctx = glistenCanvas.getContext('2d');
   ctx.clearRect(0, 0, glistenCanvas.width, glistenCanvas.height);
 });
+
+
+if (flipCount >= 100) {
+  localStorage.setItem('paulAllenShown', 'true');
+  paMsg.style.display = 'block';
+}
